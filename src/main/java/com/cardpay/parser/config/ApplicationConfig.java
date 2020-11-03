@@ -9,9 +9,17 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.*;
 
+/**
+ * Application config
+ */
 @Configuration
 public class ApplicationConfig {
 
+    /**
+     * Bean for thread pool executor.
+     * @param maxPoolSize value for max pool size.
+     * @return {@link ExecutorService}
+     */
     @Bean
     public ExecutorService threadPoolExecutor(@Value("${parser.threadpool.maxPoolSize}") int maxPoolSize){
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
@@ -20,6 +28,10 @@ public class ApplicationConfig {
         return executor;
     }
 
+    /**
+     * Bean for {@link ObjectMapper} to serialize/deserialize JSON data
+     * @return {@link ObjectMapper}
+     */
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();

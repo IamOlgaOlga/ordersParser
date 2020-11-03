@@ -11,22 +11,33 @@ import java.math.BigDecimal;
 import java.util.concurrent.ExecutorService;
 
 /**
- * {@link CsvParser} is responsible for CSV files parsing
+ * Implementation of {@link LineByLineParser} is responsible for CSV files parsing
  */
 @Component
 @Log4j2
 public class CsvParser extends LineByLineParser{
-
+    /**
+     * Reference to property about CSV file separator.
+     */
     @Value("${parser.csv.separator}")
     private String csvSeparator;
-
+    /**
+     * Reference to property about colunm number in CSV files
+     */
     @Value("${parser.csv.csvColumns}")
     private int csvColumns;
 
+    /**
+     * Constructor for {@link JsonParser}. Calls a super class constructor.
+     */
     public CsvParser(ExecutorService threadPoolExecutor, ObjectMapper objectMapper) {
         super(threadPoolExecutor, objectMapper);
     }
-
+    /**
+     * Parse a line from CSV file and build {@link OutputLine} as a result line.
+     * @param inputLineMetadata {@link InputLineMetadata} with metadata about input line
+     * @return parsed {@link OutputLine} as {@link String}
+     */
     @Override
     protected String parseLine(InputLineMetadata inputLineMetadata) {
         log.info("Start line parsing {} form file {}: {}",

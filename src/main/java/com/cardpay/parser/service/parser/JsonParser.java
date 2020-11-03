@@ -11,22 +11,22 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ExecutorService;
 
 /**
- * {@link JsonParser} is responsible for JSON files parsing
+ * Implementation of {@link LineByLineParser} is responsible for JSON files parsing.
  */
 @Component
 @Log4j2
 public class JsonParser extends LineByLineParser {
-
+    /**
+     * Constructor for {@link JsonParser}. Calls a super class constructor.
+     */
     public JsonParser(ExecutorService threadPoolExecutor, ObjectMapper objectMapper) {
         super(threadPoolExecutor, objectMapper);
     }
 
     /**
-     *
-     * TODO write about SneakyThrows
-     *
-     * @param inputLineMetadata
-     * @return
+     * Parse a JSON line using {@link ObjectMapper} and build {@link OutputLine} as a result line.
+     * @param inputLineMetadata {@link InputLineMetadata} with metadata about input line
+     * @return parsed {@link OutputLine} as {@link String}
      */
     @Override
     protected String parseLine(InputLineMetadata inputLineMetadata) {

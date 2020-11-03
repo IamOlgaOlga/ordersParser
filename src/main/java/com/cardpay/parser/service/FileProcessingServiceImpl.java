@@ -11,7 +11,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Worker which handle the file: checks a file extension and call appropriate parser for this file.
+ * Implementation of service {@link FileProcessingService} which process input file: checks a file extension and call appropriate parser for this file.
+ * Valid and supported file extensions:
+ *      - CSV
+ *      - JSON
  */
 @Service
 @AllArgsConstructor
@@ -25,13 +28,18 @@ public class FileProcessingServiceImpl implements FileProcessingService{
      * Constant value for .json file extension.
      */
     private static final String JSON_EXTENSION = "JSON";
-
+    /**
+     * Reference to {@link CsvParser}
+     */
     private final CsvParser csvParser;
-
+    /**
+     * Reference to {@link JsonParser}
+     */
     private final JsonParser jsonParser;
 
     /**
-     * Provide an ability to process file.
+     * Provide an ability to process file with extensions: CSV, JSON.
+     * @param filePath path to input file
      */
     @Override
     public void process(String filePath) throws IOException {

@@ -6,11 +6,15 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * {@link Parser} is responsible for file parsing.
+ * Responsible for file parsing.
  */
 @Service
 @FunctionalInterface
 public interface Parser {
-
+    /**
+     * Parse file
+     * @param file file to parse
+     * @throws IOException if any IO exception occurs
+     */
     void parseFile(File file) throws IOException;
 }
