@@ -2,24 +2,19 @@ package com.cardpay.parser.service;
 
 import com.cardpay.parser.service.parser.CsvParser;
 import com.cardpay.parser.service.parser.JsonParser;
-import com.cardpay.parser.service.parser.Parser;
-import com.cardpay.parser.worker.LineWorker;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.concurrent.ExecutorService;
 
 /**
  * Worker which handle the file: checks a file extension and call appropriate parser for this file.
  */
 @Service
 @AllArgsConstructor
-public class ParsingService {
+public class FileProcessingServiceImpl implements FileProcessingService{
     /**
      * Constant value for .csv file extension.
      */
@@ -29,14 +24,19 @@ public class ParsingService {
      */
     private static final String JSON_EXTENSION = "JSON";
 
-    private CsvParser csvParser;
+    private final CsvParser csvParser;
 
-    private JsonParser jsonParser;
+    private final JsonParser jsonParser;
 
     /**
      * Provide an ability to process file.
      */
-    public void processFile(File file) {
+    @Override
+    public void process(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            throw new IOException("Can't find file with path: " + filePath);
+        }
         String fileExtension = FilenameUtils.getExtension(file.getName());
         switch (fileExtension.toUpperCase()){
             case CSV_EXTENSION:
@@ -46,7 +46,7 @@ public class ParsingService {
                 jsonParser.parseFile(file);
                 break;
             default:
-                //TODO add log
+                throw new IOException("Not support file extension: " + fileExtension);
         }
     }
 }
