@@ -24,7 +24,7 @@ public class CsvParserTest {
     /**
      * Constant for line number
      */
-    private static final int TEST_LINE_NUMBER = 1;
+    private static final Long TEST_LINE_NUMBER = 1L;
     /**
      * Constant for valid line
      */
@@ -62,8 +62,8 @@ public class CsvParserTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         csvParser = new CsvParser(Executors.newFixedThreadPool(1), mapper);
-        ReflectionTestUtils.setField(csvParser,"csvSeparator",",");
-        ReflectionTestUtils.setField(csvParser,"csvColumns",4);
+        ReflectionTestUtils.setField(csvParser, "csvSeparator", ",");
+        ReflectionTestUtils.setField(csvParser, "csvColumns", 4);
     }
 
     /**
@@ -81,10 +81,10 @@ public class CsvParserTest {
 
     /**
      * Testing that CSV line with invalid amount value is parsed with error result and null values fo below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidAmountValue_expectedFailResult() {
@@ -98,10 +98,10 @@ public class CsvParserTest {
 
     /**
      * Testing that CSV line with invalid order ID value is parsed with error result and null values fo below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidOrderIdValue_expectedFailResult() {
@@ -115,10 +115,10 @@ public class CsvParserTest {
 
     /**
      * Testing that CSV line with extra columns is parsed with error result and null values fo below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputColumns_expectedFailResult() {
@@ -132,10 +132,10 @@ public class CsvParserTest {
 
     /**
      * Testing that CSV line with empty columns is parsed with error result and null values fo below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputEmptyColumns_expectedFailResult() {
@@ -149,10 +149,10 @@ public class CsvParserTest {
 
     /**
      * Testing that empty line is parsed with error result and null values fo below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputEmptyLine_expectedFailResult() {

@@ -39,7 +39,7 @@ public class InputLine {
     public InputLine(@JsonProperty("orderId") Long orderId,
                      @JsonProperty("amount") BigDecimal amount,
                      @JsonProperty("currency") String currency,
-                     @JsonProperty("comment")String comment) {
+                     @JsonProperty("comment") String comment) {
         this.orderId = orderId;
         this.amount = amount;
         this.currency = currency;

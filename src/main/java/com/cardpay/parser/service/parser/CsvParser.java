@@ -4,6 +4,7 @@ import com.cardpay.parser.domain.InputLineMetadata;
 import com.cardpay.parser.domain.OutputLine;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,15 @@ import java.util.concurrent.ExecutorService;
  */
 @Component
 @Log4j2
-public class CsvParser extends LineByLineParser{
+public class CsvParser extends LineByLineParser {
+    /**
+     * Unexpected number of columns error message.
+     */
+    private static final String UNEXPECTED_NUMBER_OF_COLUMNS_ERROR_MSG = "Unexpected number of columns.";
+    /**
+     * Incorrect format of row values error message.
+     */
+    private static final String INCORRECT_ROW_FORMAT_ERROR_MSG = "Incorrect format of row values.";
     /**
      * Reference to property about CSV file separator.
      */
@@ -30,11 +39,14 @@ public class CsvParser extends LineByLineParser{
     /**
      * Constructor for {@link JsonParser}. Calls a super class constructor.
      */
+    @Autowired
     public CsvParser(ExecutorService threadPoolExecutor, ObjectMapper objectMapper) {
         super(threadPoolExecutor, objectMapper);
     }
+
     /**
      * Parse a line from CSV file and build {@link OutputLine} as a result line.
+     *
      * @param inputLineMetadata {@link InputLineMetadata} with metadata about input line
      * @return parsed {@link OutputLine} as {@link String}
      */
@@ -46,8 +58,8 @@ public class CsvParser extends LineByLineParser{
             log.error("Error while parsing a line {} from file {}: {}",
                     inputLineMetadata.getLineNumber(),
                     inputLineMetadata.getFileName(),
-                    "Unexpected number of columns.");
-            outputLine = OutputLine.fail("Unexpected number of columns.")
+                    UNEXPECTED_NUMBER_OF_COLUMNS_ERROR_MSG);
+            outputLine = OutputLine.fail(UNEXPECTED_NUMBER_OF_COLUMNS_ERROR_MSG)
                     .setFilename(inputLineMetadata.getFileName())
                     .setLine(inputLineMetadata.getLineNumber())
                     .build();
@@ -66,8 +78,8 @@ public class CsvParser extends LineByLineParser{
             log.error("Error while parsing a line {} from file {}: {}",
                     inputLineMetadata.getLineNumber(),
                     inputLineMetadata.getFileName(),
-                    "Incorrect format of row values.");
-            outputLine = OutputLine.fail("Incorrect format of row values.")
+                    INCORRECT_ROW_FORMAT_ERROR_MSG);
+            outputLine = OutputLine.fail(INCORRECT_ROW_FORMAT_ERROR_MSG)
                     .setFilename(inputLineMetadata.getFileName())
                     .setLine(inputLineMetadata.getLineNumber())
                     .build();

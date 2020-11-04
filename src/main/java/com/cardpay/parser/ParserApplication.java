@@ -19,7 +19,7 @@ import java.util.concurrent.CountDownLatch;
 public class ParserApplication implements CommandLineRunner {
 
     /**
-     * Reference
+     * Reference to {@link FileProcessingService}
      */
     private final FileProcessingService fileProcessingService;
 
@@ -68,7 +68,7 @@ public class ParserApplication implements CommandLineRunner {
                 finish.countDown();
             }
         }).start();
-        log.info("Waiting threads to finish work");
+        log.info("Waiting for threads to finish work");
         finish.await();
     }
 }

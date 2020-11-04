@@ -16,11 +16,14 @@ import java.util.concurrent.ExecutorService;
 @Component
 @Log4j2
 public class JsonParser extends LineByLineParser {
-
     /**
      * Constant for open curly brace
      */
     private static final String OPEN_CURLY_BRACE = "{";
+    /**
+     * Multiple orders in one line error message
+     */
+    private static final String MULTIPLE_ORDERS_IN_ONE_LINE_ERROR_MSG = "There are more than one order in line.";
 
     /**
      * Constructor for {@link JsonParser}. Calls a super class constructor.
@@ -31,6 +34,7 @@ public class JsonParser extends LineByLineParser {
 
     /**
      * Parse a JSON line using {@link ObjectMapper} and build {@link OutputLine} as a result line.
+     *
      * @param inputLineMetadata {@link InputLineMetadata} with metadata about input line
      * @return parsed {@link OutputLine} as {@link String}
      */
@@ -40,8 +44,8 @@ public class JsonParser extends LineByLineParser {
         String lineContent = inputLineMetadata.getLineContent();
         long lineNumber = inputLineMetadata.getLineNumber();
         if (lineContent.indexOf(OPEN_CURLY_BRACE) != lineContent.lastIndexOf(OPEN_CURLY_BRACE)) {
-            log.error("There are more than one order in line {}", lineNumber);
-            outputLine = OutputLine.fail("There are more than one order in line.")
+            log.error("{}: {}", MULTIPLE_ORDERS_IN_ONE_LINE_ERROR_MSG, lineNumber);
+            outputLine = OutputLine.fail(MULTIPLE_ORDERS_IN_ONE_LINE_ERROR_MSG)
                     .setFilename(inputLineMetadata.getFileName())
                     .setLine(lineNumber)
                     .build();

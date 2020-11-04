@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutorService;
  */
 @AllArgsConstructor
 @Log4j2
-public abstract class LineByLineParser implements Parser{
+public abstract class LineByLineParser implements Parser {
     /**
      * Reference to {@link ExecutorService} to parse lines concurrency.
      */
@@ -32,21 +32,18 @@ public abstract class LineByLineParser implements Parser{
     /**
      * Provide an ability to parse file line-by-line concurrency.
      * Each line is submitted to {@link ExecutorService} and call parseLine() method implementation.
+     *
      * @param file file to parse.
      * @throws IOException if any IO exception occurs.
      */
     @Override
     public void parseFile(File file) throws IOException {
-        try(BufferedReader bufferedReader = Files.newBufferedReader(file.toPath())){
+        try (BufferedReader bufferedReader = Files.newBufferedReader(file.toPath())) {
             String currentLine;
             long lineNumber = 1;
             while ((currentLine = bufferedReader.readLine()) != null) {
                 InputLineMetadata inputLineMetadata = new InputLineMetadata(file.getName(), lineNumber, currentLine);
-                threadPoolExecutor.submit(() -> {
-                    String parsedLine = parseLine(inputLineMetadata);
-                    System.out.println(parsedLine);
-                    log.info("Parsed line result: {}", parsedLine);
-                });
+                threadPoolExecutor.submit(() -> System.out.println(parseLine(inputLineMetadata)));
                 lineNumber++;
             }
         }
@@ -55,7 +52,7 @@ public abstract class LineByLineParser implements Parser{
     /**
      * Returns {@link String} value in JSON format of {@link OutputLine} parsed line.
      * "@SneakyThrows" is here because {@link JsonProcessingException} cannot be thrown here.
-     * See {@link ObjectMapper} for more information.
+     *
      * @param outputLine POJO parsed line.
      * @return {@link String} value in JSON format of {@link OutputLine} parsed line.
      */
@@ -66,6 +63,7 @@ public abstract class LineByLineParser implements Parser{
 
     /**
      * Abstract method which provides an ability to parse a content line from {@link InputLineMetadata}.
+     *
      * @param inputLineMetadata {@link InputLineMetadata} with metadata about input line
      * @return parsed output(result) line as {@link String}
      */

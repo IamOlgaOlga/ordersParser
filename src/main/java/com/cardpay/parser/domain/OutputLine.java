@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -49,25 +50,28 @@ public class OutputLine {
     private final String result;
 
     /**
-     * Provide a {@link Builder} in case SUCCESS parsing result.
+     * Provide a {@link Builder} in case of successful parsing result.
+     *
      * @return {@link Builder} to build a {@link OutputLine} object
      */
     public static Builder success() {
-        return new Builder(SUCCESS);
+        return new Builder().setResult(SUCCESS);
     }
 
     /**
-     * Provide a {@link Builder} in case FAILED parsing result.
+     * Provide a {@link Builder} in case of failed parsing result.
+     *
      * @return {@link Builder} to build a {@link OutputLine} object
      */
-    public static Builder fail(String reason) {
-        return new Builder(reason);
+    public static Builder fail(String failureReason) {
+        return new Builder().setResult(failureReason);
     }
 
     /**
      * Builder for {@link OutputLine} objects.
      */
     @JsonPOJOBuilder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Builder {
         /**
          * @see OutputLine
@@ -99,15 +103,8 @@ public class OutputLine {
         private String result;
 
         /**
-         * Constructor
-         * @param result parsing result
-         */
-        private Builder(String result) {
-            this.result = result;
-        }
-
-        /**
          * Setter for order ID
+         *
          * @param id order ID
          * @return {@link Builder}
          */
@@ -118,6 +115,7 @@ public class OutputLine {
 
         /**
          * Setter for order amount
+         *
          * @param amount order amount
          * @return {@link Builder}
          */
@@ -128,6 +126,7 @@ public class OutputLine {
 
         /**
          * Setter for order amount currency
+         *
          * @param currency order amount currency
          * @return {@link Builder}
          */
@@ -138,6 +137,7 @@ public class OutputLine {
 
         /**
          * Setter for comment from order
+         *
          * @param comment comment from order
          * @return {@link Builder}
          */
@@ -148,6 +148,7 @@ public class OutputLine {
 
         /**
          * Setter for source file
+         *
          * @param filename source file
          * @return {@link Builder}
          */
@@ -158,6 +159,7 @@ public class OutputLine {
 
         /**
          * Setter for source file line's number
+         *
          * @param line source file line's number
          * @return {@link Builder}
          */
@@ -168,6 +170,7 @@ public class OutputLine {
 
         /**
          * Setter for parsing result
+         *
          * @param result parsing result
          * @return {@link Builder}
          */
@@ -178,6 +181,7 @@ public class OutputLine {
 
         /**
          * Build an {@link OutputLine} object.
+         *
          * @return {@link OutputLine} object.
          */
         public OutputLine build() {

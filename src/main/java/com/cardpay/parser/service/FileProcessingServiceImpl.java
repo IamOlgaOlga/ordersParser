@@ -11,23 +11,16 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Implementation of service {@link FileProcessingService} which process input file: checks a file extension and call appropriate parser for this file.
+ * Implementation of service {@link FileProcessingService} which process input file:
+ * checks a file extension and call appropriate parser for this file.
  * Valid and supported file extensions:
- *      - CSV
- *      - JSON
+ * - CSV
+ * - JSON
  */
 @Service
 @AllArgsConstructor
 @Log4j2
-public class FileProcessingServiceImpl implements FileProcessingService{
-    /**
-     * Constant value for .csv file extension.
-     */
-    private static final String CSV_EXTENSION = "CSV";
-    /**
-     * Constant value for .json file extension.
-     */
-    private static final String JSON_EXTENSION = "JSON";
+public class FileProcessingServiceImpl implements FileProcessingService {
     /**
      * Reference to {@link CsvParser}
      */
@@ -39,26 +32,27 @@ public class FileProcessingServiceImpl implements FileProcessingService{
 
     /**
      * Provide an ability to process file with extensions: CSV, JSON.
+     *
      * @param filePath path to input file
      */
     @Override
     public void process(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
-            throw new IOException("Can't find file with path: " + filePath);
+            throw new IOException("Cannot find file with path: " + filePath);
         }
-        String fileExtension = FilenameUtils.getExtension(file.getName());
-        switch (fileExtension.toUpperCase()){
-            case CSV_EXTENSION:
+        String fileExtension = FilenameUtils.getExtension(file.getName()).toUpperCase();
+        FileType fileType = FileType.resolve(fileExtension)
+                .orElseThrow(() -> new IOException("Unsupported file extension: " + fileExtension.toUpperCase()));
+        switch (fileType) {
+            case CSV:
                 log.info("Start CSV file parsing {}", filePath);
                 csvParser.parseFile(file);
                 break;
-            case JSON_EXTENSION:
+            case JSON:
                 log.info("Start JSON file parsing {}", filePath);
                 jsonParser.parseFile(file);
                 break;
-            default:
-                throw new IOException("Not support file extension: " + fileExtension.toUpperCase());
         }
     }
 }

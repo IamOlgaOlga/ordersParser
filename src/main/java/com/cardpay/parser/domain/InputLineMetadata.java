@@ -2,14 +2,12 @@ package com.cardpay.parser.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 /**
  * POJO for source file line's metadata.
  */
 @Getter
 @AllArgsConstructor
-@ToString
 public class InputLineMetadata {
     /**
      * Source file name.
@@ -18,7 +16,7 @@ public class InputLineMetadata {
     /**
      * source file line number.
      */
-    private final long lineNumber;
+    private final Long lineNumber;
     /**
      * source file line's content.
      */

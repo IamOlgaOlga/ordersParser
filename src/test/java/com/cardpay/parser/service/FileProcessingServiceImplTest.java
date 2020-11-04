@@ -1,7 +1,7 @@
 package com.cardpay.parser.service;
 
-import com.cardpay.parser.service.parser.JsonParser;
 import com.cardpay.parser.service.parser.CsvParser;
+import com.cardpay.parser.service.parser.JsonParser;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,6 +52,7 @@ public class FileProcessingServiceImplTest {
 
     /**
      * Testing that for valid CSV file {@link CsvParser} only is called 1 time.
+     *
      * @throws IOException if any IO exception occurs.
      */
     @Test
@@ -63,6 +64,7 @@ public class FileProcessingServiceImplTest {
 
     /**
      * Testing that for valid JSON file {@link JsonParser} only is called 1 time.
+     *
      * @throws IOException if any IO exception occurs.
      */
     @Test
@@ -74,6 +76,7 @@ public class FileProcessingServiceImplTest {
 
     /**
      * Testing that for invalid file path {@link IOException} is thrown and no one parser is called.
+     *
      * @throws IOException if any IO exception occurs.
      */
     @Test
@@ -81,7 +84,7 @@ public class FileProcessingServiceImplTest {
         try {
             fileProcessingService.process(TEST_INCORRECT_FILE_PATH);
         } catch (IOException e) {
-            String expectedErrorMessage = "Can't find file with path: " + TEST_INCORRECT_FILE_PATH;
+            String expectedErrorMessage = "Cannot find file with path: " + TEST_INCORRECT_FILE_PATH;
             Assert.assertEquals(expectedErrorMessage, e.getMessage());
             Mockito.verify(csvParser, Mockito.times(0)).parseFile(Mockito.any(File.class));
             Mockito.verify(jsonParser, Mockito.times(0)).parseFile(Mockito.any(File.class));
@@ -92,6 +95,7 @@ public class FileProcessingServiceImplTest {
 
     /**
      * Testing that for valid file with unsupported extension {@link IOException} is thrown and no one parser is called.
+     *
      * @throws IOException if any IO exception occurs.
      */
     @Test
@@ -99,7 +103,7 @@ public class FileProcessingServiceImplTest {
         try {
             fileProcessingService.process(TEST_UNSUPPORTED_EXTENSION);
         } catch (IOException e) {
-            String expectedErrorMessage = "Not support file extension: TXT";
+            String expectedErrorMessage = "Unsupported file extension: TXT";
             Assert.assertEquals(expectedErrorMessage, e.getMessage());
             Mockito.verify(csvParser, Mockito.times(0)).parseFile(Mockito.any(File.class));
             Mockito.verify(jsonParser, Mockito.times(0)).parseFile(Mockito.any(File.class));

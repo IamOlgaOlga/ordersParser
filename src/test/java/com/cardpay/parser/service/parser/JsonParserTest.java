@@ -23,7 +23,7 @@ public class JsonParserTest {
     /**
      * Constant for line number
      */
-    private static final int TEST_LINE_NUMBER = 1;
+    private static final Long TEST_LINE_NUMBER = 1L;
     /**
      * Constant for valid line
      */
@@ -78,6 +78,7 @@ public class JsonParserTest {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         jsonParser = new JsonParser(Executors.newFixedThreadPool(1), mapper);
     }
+
     /**
      * Testing that valid JSON line is parsed successfully.
      */
@@ -107,10 +108,10 @@ public class JsonParserTest {
     /**
      * Testing that JSON line with invalid amount value is parsed with error result
      * and null values for below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidAmountValue_expectedFailResult() {
@@ -127,10 +128,10 @@ public class JsonParserTest {
     /**
      * Testing that JSON line with invalid order ID value is parsed with error result
      * and null values for below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidOrderIdValue_expectedFailResult() {
@@ -147,10 +148,10 @@ public class JsonParserTest {
     /**
      * Testing that JSON line with extra properties is parsed with error result
      * and null values for below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputColumns_expectedSuccessResult() {
@@ -165,10 +166,10 @@ public class JsonParserTest {
     /**
      * Testing that JSON line with a few orders is parsed with error result
      * and null values for below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputDoubledLine_expectedFailResult() {
@@ -184,10 +185,10 @@ public class JsonParserTest {
     /**
      * Testing that corrupted JSON line is parsed with error result
      * and null values for below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputEmptyCorruptedLine_expectedFailResult() {
@@ -203,10 +204,10 @@ public class JsonParserTest {
     /**
      * Testing that JSON line with empty values is parsed with error result
      * and null values for below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputEmptyValuesLine_expectedFailResult() {
@@ -222,10 +223,10 @@ public class JsonParserTest {
     /**
      * Testing that empty line is parsed with error result
      * and null values for below properties:
-     *  - id
-     *  - amount
-     *  - currency
-     *  - comment
+     * - id
+     * - amount
+     * - currency
+     * - comment
      */
     @Test
     public void testParseLine_invalidInputEmptyLine_expectedFailResult() {

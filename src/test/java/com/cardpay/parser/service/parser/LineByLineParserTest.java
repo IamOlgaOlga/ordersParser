@@ -57,6 +57,7 @@ public class LineByLineParserTest {
     /**
      * Testing that for file with 4 lines inside {@link ExecutorService} is called 4 times
      * to send each line to next processing.
+     *
      * @throws IOException if any IO exception occurs.
      */
     @Test
@@ -68,6 +69,7 @@ public class LineByLineParserTest {
 
     /**
      * Testing that for empty file {@link ExecutorService} is called 0 times.
+     *
      * @throws IOException if any IO exception occurs.
      */
     @Test
@@ -79,6 +81,7 @@ public class LineByLineParserTest {
 
     /**
      * Testing that for any file with 1 line {@link ExecutorService} is called 1 time.
+     *
      * @throws IOException if any IO exception occurs.
      */
     @Test
@@ -93,7 +96,7 @@ public class LineByLineParserTest {
      * and {@link IOException} is thrown.
      */
     @Test
-    public void testParseFile_incorrectFilePath_expectedIOException(){
+    public void testParseFile_incorrectFilePath_expectedIOException() {
         File testFile = new File(TEST_INCORRECT_FILE_PATH);
         try {
             lineByLineParser.parseFile(testFile);
