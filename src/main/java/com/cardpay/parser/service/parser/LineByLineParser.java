@@ -41,7 +41,6 @@ public abstract class LineByLineParser implements Parser{
             String currentLine;
             long lineNumber = 1;
             while ((currentLine = bufferedReader.readLine()) != null) {
-                log.debug("Submit line {} from file {} : {}", lineNumber, file.getName(), currentLine);
                 InputLineMetadata inputLineMetadata = new InputLineMetadata(file.getName(), lineNumber, currentLine);
                 threadPoolExecutor.submit(() -> {
                     String parsedLine = parseLine(inputLineMetadata);

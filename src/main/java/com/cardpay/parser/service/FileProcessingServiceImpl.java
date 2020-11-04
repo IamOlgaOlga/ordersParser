@@ -58,7 +58,7 @@ public class FileProcessingServiceImpl implements FileProcessingService{
                 jsonParser.parseFile(file);
                 break;
             default:
-                throw new IOException("Not support file extension: " + fileExtension);
+                throw new IOException("Not support file extension: " + fileExtension.toUpperCase());
         }
     }
 }

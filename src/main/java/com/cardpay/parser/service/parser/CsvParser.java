@@ -40,10 +40,6 @@ public class CsvParser extends LineByLineParser{
      */
     @Override
     protected String parseLine(InputLineMetadata inputLineMetadata) {
-        log.info("Start line parsing {} form file {}: {}",
-                inputLineMetadata.getLineNumber(),
-                inputLineMetadata.getFileName(),
-                inputLineMetadata.getLineContent());
         OutputLine outputLine;
         String[] parsedCsvLine = inputLineMetadata.getLineContent().split(csvSeparator);
         if (parsedCsvLine.length != csvColumns) {
